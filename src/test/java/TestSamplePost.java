@@ -123,6 +123,7 @@ public class TestSamplePost {
                 .as(Map.class);
         ///System.out.println("Response body: "+response.toString());
         System.out.println("Validated the status code - Got 201");
+        System.out.println("Username : " + newUserName);
         System.out.println("success : " +response.get("success"));
         System.out.println("successDescription : " +response.get("successDescription"));
         System.out.println("status : " +response.get("status"));
