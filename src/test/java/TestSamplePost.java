@@ -11,6 +11,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import org.json.*;
 
 
@@ -31,7 +33,7 @@ public class TestSamplePost {
 
     }
     @Test
-    public  void sampleGetTest()
+    public  void getTokenTest()
 
     {
 
@@ -68,6 +70,62 @@ public class TestSamplePost {
         System.out.println("token_type : " +response.get("token_type"));
         System.out.println("expires_in : " +response.get("expires_in"));
         System.out.println("End of test : TestSamplePost");
+
+
+    }
+
+    @Test
+    public void createUserTest(){
+        Map<String, Object> userProfile = new HashMap<String, Object>();
+        Map<String, Object> companyDetails = new HashMap<String, Object>();
+        companyDetails.put("id",0);
+        companyDetails.put("name","test");
+        companyDetails.put("city","Bangalore");
+        companyDetails.put("zipCode","560068");
+        companyDetails.put("state","karnataka");
+        companyDetails.put("country","IN");
+        companyDetails.put("currencyCode","");
+        companyDetails.put("customerClass","");
+        companyDetails.put("marketSegment","");
+        companyDetails.put("poBox","560067");
+        String newUserName = "sramalin" + UUID.randomUUID().toString()+"@mailinator.com";
+        userProfile.put("email",newUserName);
+        userProfile.put("password","Password@123");
+        userProfile.put("firstName","firstname");
+        userProfile.put("lastName","lastname");
+        userProfile.put("companyName","company123");
+        userProfile.put("country","FR");
+        userProfile.put("channel","OM");
+        userProfile.put("subChannel","SI3");
+        userProfile.put("preferredLanguage","fr");
+        userProfile.put("jobFunction","Z003");
+        userProfile.put("street","street");
+        userProfile.put("partnerId","pace");
+
+        userProfile.put("addInfoAddress","address");
+        userProfile.put("cell","+91 9999999999");
+        userProfile.put("phone","+91 9999999997");
+        userProfile.put("localityName","Bangalore");
+        userProfile.put("postalCode","560067");
+        userProfile.put("state","KA");
+        userProfile.put("prefComEmail","U");
+        userProfile.put("company",companyDetails);
+
+        String str = "/user";
+        Map response = given()
+                .header("Content-Type", "application/json")
+                .header("Authorization","Basic cGFjZTpwYWNl")
+                .accept("application/json")
+                .body(userProfile)
+                .when().post(str).then()
+                .statusCode(201)
+                .extract()
+                .as(Map.class);
+        ///System.out.println("Response body: "+response.toString());
+        System.out.println("Validated the status code - Got 201");
+        System.out.println("success : " +response.get("success"));
+        System.out.println("successDescription : " +response.get("successDescription"));
+        System.out.println("status : " +response.get("status"));
 
 
     }
