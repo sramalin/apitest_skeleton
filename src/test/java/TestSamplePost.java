@@ -2,21 +2,18 @@
 /**
  * Created by sramalin on 10/01/17.
  */
+
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.filter.log.ErrorLoggingFilter;
-import com.jayway.restassured.http.ContentType;
-import com.jayway.restassured.parsing.Parser;
-import com.jayway.restassured.response.Response;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.json.*;
-
-
-import static com.jayway.restassured.RestAssured.DEFAULT_URL_ENCODING_ENABLED;
+import static com.jayway.restassured.RestAssured.basePath;
+import static com.jayway.restassured.RestAssured.baseURI;
 import static com.jayway.restassured.RestAssured.given;
 
 
@@ -26,8 +23,11 @@ public class TestSamplePost {
     public static void setup() {
 
         System.out.println("Test setup for TestSamplePost");
-        RestAssured.basePath = "/api/v1/";
-        RestAssured.baseURI = "https://login-sqe.pace.schneider-electric.com";
+        RestAssured.basePath = Reader.getProperty("SQA.basePath", "testconfig.properties");
+        RestAssured.baseURI = Reader.getProperty("SQA.baseURL", "testconfig.properties");
+          System.out.println(baseURI);
+        System.out.println(basePath);
+
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.filters(ErrorLoggingFilter.errorLogger());
 
