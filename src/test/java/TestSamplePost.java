@@ -6,6 +6,7 @@
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.filter.log.ErrorLoggingFilter;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -13,7 +14,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import static com.jayway.restassured.RestAssured.basePath;
-import static com.jayway.restassured.RestAssured.baseURI;
 import static com.jayway.restassured.RestAssured.given;
 
 
@@ -23,16 +23,18 @@ public class TestSamplePost {
     public static void setup() {
 
         System.out.println("Test setup for TestSamplePost");
-        RestAssured.basePath = Reader.getProperty("SQA.basePath", "testconfig.properties");
-        RestAssured.baseURI = Reader.getProperty("SQA.baseURL", "testconfig.properties");
-          System.out.println(baseURI);
-        System.out.println(basePath);
+        System.out.println("Environment chosen: "+ System.getProperty("environment").toLowerCase());
+        String propertyFileName = System.getProperty("environment").toLowerCase()+"-testconfig.properties";
+        System.out.println("Property file loaded:"+propertyFileName);
 
+        ConfigObject configObject = new ConfigObject(propertyFileName);
+        RestAssured.basePath = configObject.strURL;
+        System.out.println(basePath);
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.filters(ErrorLoggingFilter.errorLogger());
 
     }
-    @Test
+    @Ignore
     public  void getTokenTest()
 
     {
