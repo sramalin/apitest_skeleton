@@ -29,7 +29,9 @@ public class TestSamplePost {
         System.out.println("Property file loaded: "+propertyFileName);
 
         configObject = new ConfigFileObject(propertyFileName);
-        RestAssured.basePath = configObject.strURL;
+
+        RestAssured.basePath = "/api/v1";
+        RestAssured.baseURI = configObject.strURL;
         System.out.println(basePath);
         basicAuth = configObject.basicAuth;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
@@ -77,7 +79,7 @@ public class TestSamplePost {
         System.out.println("End of test : TestSamplePost");
     }
 
-    @Test
+    @Ignore
     public void createUserTest(){
         Map userProfile= DataHelper.getDefaultUserProfileData();
         Map response = EndPointHelper.createUser(userProfile,basicAuth,201);

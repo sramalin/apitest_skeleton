@@ -1,5 +1,6 @@
 package helpers;
 
+import com.jayway.restassured.RestAssured;
 import config.ConfigFileObject;
 
 import java.util.Map;
@@ -14,6 +15,7 @@ public class EndPointHelper{
 
 
     public static Map getToken(String username,String password,int responseCode){
+
         String endPoint = "/token";
         String params = "username="+username+"&password="+password+"&grant_type=password";
          Map response = given()
