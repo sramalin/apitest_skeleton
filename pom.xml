@@ -48,8 +48,7 @@
                 <version>2.12.4</version>
                 <configuration>
                     <systemPropertyVariables>
-                        <envprop>${proo}</envprop>
-                        <environment>${test123}</environment>
+                        <environment>${env.HOME}</environment>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
