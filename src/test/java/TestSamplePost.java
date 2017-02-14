@@ -79,7 +79,7 @@ public class TestSamplePost {
         System.out.println("End of test : TestSamplePost");
     }
 
-    @Ignore
+    @Test
     public void createUserTest(){
         Map userProfile= DataHelper.getDefaultUserProfileData();
         Map response = EndPointHelper.createUser(userProfile,basicAuth,201);
