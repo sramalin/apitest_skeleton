@@ -99,6 +99,7 @@ public class TestSamplePost {
         userData.put("email",emailId);
         Map response =EndPointHelper.createUser(userData,basicAuth,400);
         Assert.assertTrue(response.get("error").equals("email_not_free"));
+        System.out.println(emailId+" is registered successfully.");
     }
 
 }

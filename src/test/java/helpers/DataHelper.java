@@ -30,8 +30,9 @@ public class DataHelper {
         userProfile.put("lastName","lastname");
         userProfile.put("companyName","company123");
         userProfile.put("country","FR");
-        userProfile.put("channel","OM");
-        userProfile.put("subChannel","SI3");
+        //    channel and subChannel are removed from 1.43
+        //     userProfile.put("channel","OM");
+        //      userProfile.put("subChannel","SI3");
         userProfile.put("preferredLanguage","fr");
         userProfile.put("jobFunction","Z003");
         userProfile.put("street","street");
