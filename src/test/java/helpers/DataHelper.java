@@ -65,4 +65,24 @@ public class DataHelper {
         return userProfile;
     }
 
+    public static Map getDefaultRegistrationData(){
+        Map<String, Object> userProfile = new HashMap<String, Object>();
+        String email = "sch_register" + UUID.randomUUID().toString()+"@mailinator.com";
+        System.out.println("Email : "+email);
+        userProfile.put("email",email);
+        userProfile.put("updateFields","false");
+        userProfile.put("givenName","feb24");
+        userProfile.put("sn","feb24");
+        userProfile.put("password","password@123");
+        userProfile.put("company","company123");
+        userProfile.put("country","FR");
+        userProfile.put("language","en");
+        userProfile.put("termsandcon","on");
+        userProfile.put("editprofilebutton","Submit");
+        userProfile.put("submitted","true");
+        userProfile.put("organizationName","org");
+        userProfile.put("jobFunction","Accounting");
+        return userProfile;
+
+    }
 }

@@ -8,6 +8,7 @@ import com.jayway.restassured.filter.log.ErrorLoggingFilter;
 import config.ConfigFileObject;
 import helpers.DataHelper;
 import helpers.EndPointHelper;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -87,6 +88,17 @@ public class TestSamplePost {
         System.out.println("success : " +response.get("success"));
         System.out.println("successDescription : " +response.get("successDescription"));
         System.out.println("status : " +response.get("status"));
+    }
+    @Test
+    public void registrationTest_MEA(){
+        String clientId="mea";
+        Map userProfile= DataHelper.getDefaultRegistrationData();
+        String emailId=userProfile.get("email").toString();
+        EndPointHelper.register(userProfile,302,clientId);
+        Map userData = DataHelper.getDefaultUserProfileData();
+        userData.put("email",emailId);
+        Map response =EndPointHelper.createUser(userData,basicAuth,400);
+        Assert.assertTrue(response.get("error").equals("email_not_free"));
     }
 
 }
