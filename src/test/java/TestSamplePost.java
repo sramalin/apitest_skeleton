@@ -16,6 +16,35 @@ import org.junit.Test;
 import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.basePath;
+import static com.jayway.restassured.RestAssured.baseURI;
+
+// Sample body through Json object
+//        JSONObject jsonobj = new JSONObject();
+//        try {
+//            jsonobj.put("username","sramalin@thoughtworks.com");
+//            jsonobj.put("password","Password@123");
+//            jsonobj.put("grant_type","password");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+// Sample body through Hashmap
+//        Map<String, Object> userCredentials = new HashMap<String, Object>();
+//        userCredentials.put("username","sramalin@thoughtworks.com");
+//        userCredentials.put("password","Password@123");
+//        userCredentials.put("grant_type","password");
+
+//Post call - "Content-Type", "application/x-www-form-urlencoded": Gson/Jackson will be able to seriealize the request from Json
+// However if the form params are enoded, the request should be in string format.
+       /* String str = "/token";
+        String strFormParams = "username=sramalin@thoughtworks.com&password=Password@123&grant_type=password";
+        Map response = given()
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .accept("application/json")
+                .body(strFormParams)
+                .when().post(str).then()
+                .statusCode(200)
+                .extract()
+                .as(Map.class);*/
 
 
 public class TestSamplePost {
@@ -30,49 +59,18 @@ public class TestSamplePost {
         System.out.println("Property file loaded: "+propertyFileName);
 
         configObject = new ConfigFileObject(propertyFileName);
-
         RestAssured.basePath = "/api/v1";
         RestAssured.baseURI = configObject.strURL;
-        System.out.println(basePath);
+        System.out.println("Base Path is "+basePath);
+        System.out.println("Base URI is "+baseURI);
         basicAuth = configObject.basicAuth;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.filters(ErrorLoggingFilter.errorLogger());
     }
 
     @Test
-    public  void getTokenTest() {
-
-        // Sample body through Json object
-        //        JSONObject jsonobj = new JSONObject();
-//        try {
-//            jsonobj.put("username","sramalin@thoughtworks.com");
-//            jsonobj.put("password","Password@123");
-//            jsonobj.put("grant_type","password");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-        // Sample body through Hashmap
-//        Map<String, Object> userCredentials = new HashMap<String, Object>();
-//        userCredentials.put("username","sramalin@thoughtworks.com");
-//        userCredentials.put("password","Password@123");
-//        userCredentials.put("grant_type","password");
-
-        //Post call - "Content-Type", "application/x-www-form-urlencoded": Gson/Jackson will be able to seriealize the request from Json
-        // However if the form params are enoded, the request should be in string format.
-       /* String str = "/token";
-        String strFormParams = "username=sramalin@thoughtworks.com&password=Password@123&grant_type=password";
-        Map response = given()
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .accept("application/json")
-                .body(strFormParams)
-                .when().post(str).then()
-                .statusCode(200)
-                .extract()
-                .as(Map.class);*/
-
+    public  void getTokenWithGrantTypePassword() {
         Map response = EndPointHelper.getToken(configObject.existingUser,configObject.existingUserPassword,200);
-
-        ///System.out.println("Response body: "+response.toString());
         System.out.println("Validated the status code - Got 200");
         System.out.println("access_token : " +response.get("access_token"));
         System.out.println("token_type : " +response.get("token_type"));

@@ -19,11 +19,12 @@ public class EndPointHelper{
         RestAssured.basePath = "/api/v1";
         String endPoint = "/token";
         String params = "username="+username+"&password="+password+"&grant_type=password";
-         Map response = given()
+         Map response = given().log().ifValidationFails()
                  .header("Content-Type", "application/x-www-form-urlencoded")
                  .accept("application/json")
                  .body(params)
-                 .when().post(endPoint).then()
+                 .when().post(endPoint)
+                 .then()
                  .statusCode(responseCode)
                  .extract()
                  .as(Map.class);
@@ -33,12 +34,13 @@ public class EndPointHelper{
     public static Map createUser(Map userProfile,String basicAuth,int responseCode){
         RestAssured.basePath = "/api/v1";
         String endPoint = "/user";
-        Map response = given()
+        Map response = given().log().ifValidationFails()
                 .header("Content-Type", "application/json")
                 .header("Authorization",basicAuth)
                 .accept("application/json")
                 .body(userProfile)
-                .when().post(endPoint).then()
+                .when().post(endPoint)
+                .then()
                 .statusCode(responseCode)
                 .extract()
                 .as(Map.class);
@@ -48,9 +50,9 @@ public class EndPointHelper{
     public static void register(Map userProfile,int responseCode,String clientId){
         RestAssured.basePath = "";
         String endPoint= "/sign-up?client_id="+clientId;
-            given()
+            given().log().ifValidationFails()
                .parameters(userProfile)
-                .when().post(endPoint).then()
+                .when().post(endPoint).then().log().ifValidationFails()
                 .statusCode(responseCode);
     }
 }

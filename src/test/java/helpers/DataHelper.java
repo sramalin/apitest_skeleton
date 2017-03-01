@@ -22,17 +22,17 @@ public class DataHelper {
         companyDetails.put("customerClass","");
         companyDetails.put("marketSegment","");
         companyDetails.put("poBox","560067");
-
-        String newUserName = "sramalin" + UUID.randomUUID().toString()+"@mailinator.com";
+//        String newUserName = "sramalin" + UUID.randomUUID().toString()+"@mailinator.com";
+        String newUserName = "sch_register" + UUID.randomUUID().toString().substring(0,7)+"@mailinator.com";
         userProfile.put("email",newUserName);
         userProfile.put("password","Password@123");
         userProfile.put("firstName","firstname");
         userProfile.put("lastName","lastname");
         userProfile.put("companyName","company123");
         userProfile.put("country","FR");
-        //    channel and subChannel are removed from 1.43
-        //     userProfile.put("channel","OM");
-        //      userProfile.put("subChannel","SI3");
+        // channel and subChannel are removed from 1.43
+        // userProfile.put("channel","OM");
+        // userProfile.put("subChannel","SI3");
         userProfile.put("preferredLanguage","fr");
         userProfile.put("jobFunction","Z003");
         userProfile.put("street","street");
@@ -68,13 +68,13 @@ public class DataHelper {
 
     public static Map getDefaultRegistrationData(){
         Map<String, Object> userProfile = new HashMap<String, Object>();
-        String email = "sch_register" + UUID.randomUUID().toString()+"@mailinator.com";
+        String email = "sch_register" + UUID.randomUUID().toString().substring(0,7)+"@mailinator.com";
         System.out.println("Email : "+email);
         userProfile.put("email",email);
         userProfile.put("updateFields","false");
-        userProfile.put("givenName","feb24");
+        userProfile.put("givenName","API Automation");
         userProfile.put("sn","feb24");
-        userProfile.put("password","password@123");
+        userProfile.put("password","Password@123");
         userProfile.put("company","company123");
         userProfile.put("country","FR");
         userProfile.put("language","en");
@@ -82,7 +82,8 @@ public class DataHelper {
         userProfile.put("editprofilebutton","Submit");
         userProfile.put("submitted","true");
         userProfile.put("organizationName","org");
-        userProfile.put("jobFunction","Accounting");
+        //Accouting --Z016
+        userProfile.put("jobFunction","Z016");
         return userProfile;
 
     }
