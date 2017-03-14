@@ -49,7 +49,7 @@ public class EndPointHelper{
 
     public static void register(Map userProfile,String clientId,int responseCode){
         RestAssured.basePath = "";
-        String endPoint= "/sign-up?CLIENT_ID="+clientId;
+        String endPoint= "/sign-up?client_id="+clientId;
             given().log().ifValidationFails()
                .parameters(userProfile)
                 .when().post(endPoint).then().log().ifValidationFails()
