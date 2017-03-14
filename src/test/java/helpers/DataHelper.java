@@ -23,7 +23,7 @@ public class DataHelper {
         companyDetails.put("marketSegment","");
         companyDetails.put("poBox","560067");
 //        String newUserName = "sramalin" + UUID.randomUUID().toString()+"@mailinator.com";
-        String newUserName = "sch_register" + UUID.randomUUID().toString().substring(0,7)+"@mailinator.com";
+        String newUserName = "sch_register+" + UUID.randomUUID().toString().substring(0,7)+"@mailinator.com";
         userProfile.put("email",newUserName);
         userProfile.put("password","Password@123");
         userProfile.put("firstName","firstname");

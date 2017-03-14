@@ -54,7 +54,7 @@ public class TestSamplePost {
 
     @BeforeClass
     public static void setup() {
-        System.out.println("Environment chosen : "+ System.getProperty("environment").toLowerCase());
+        System.out.println("Environment chosen : "+ System.getProperty("environment"));
         String propertyFileName = System.getProperty("environment").toLowerCase()+"-testconfig.properties";
         System.out.println("Property file loaded: "+propertyFileName);
 
@@ -92,7 +92,7 @@ public class TestSamplePost {
         String clientId="mea";
         Map userProfile= DataHelper.getDefaultRegistrationData();
         String emailId=userProfile.get("email").toString();
-        EndPointHelper.register(userProfile,302,clientId);
+        EndPointHelper.register(userProfile,clientId,302);
         Map userData = DataHelper.getDefaultUserProfileData();
         userData.put("email",emailId);
         Map response =EndPointHelper.createUser(userData,basicAuth,400);
@@ -100,4 +100,19 @@ public class TestSamplePost {
         System.out.println(emailId+" is registered successfully.");
     }
 
+  //  @Test
+  // TODO [SARATH] Reponse needs to be validated based on the data setup in DB
+    public void check(){
+        Map getTokenResponse = EndPointHelper.getToken(configObject.existingUser,configObject.existingUserPassword,200);
+        String accessToken = (String)getTokenResponse.get("access_token");
+        System.out.println("Access Token : " +accessToken);
+
+        Map profileTypeResponse = EndPointHelper.getProfileType(accessToken,200);
+        String profileType = (String)profileTypeResponse.get("profileTypeId");
+        System.out.println("Profile Type for " +configObject.existingUser+" : "+ profileType);
+
+        Map profileFieldResponse = EndPointHelper.getProfileFields(profileType,accessToken,200);
+        System.out.println("Profile Field : "+profileFieldResponse);
+
+    }
 }

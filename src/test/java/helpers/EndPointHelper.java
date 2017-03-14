@@ -47,12 +47,46 @@ public class EndPointHelper{
         return response;
     }
 
-    public static void register(Map userProfile,int responseCode,String clientId){
+    public static void register(Map userProfile,String clientId,int responseCode){
         RestAssured.basePath = "";
-        String endPoint= "/sign-up?client_id="+clientId;
+        String endPoint= "/sign-up?CLIENT_ID="+clientId;
             given().log().ifValidationFails()
                .parameters(userProfile)
                 .when().post(endPoint).then().log().ifValidationFails()
                 .statusCode(responseCode);
     }
+
+    public static Map getProfileType(String accessToken,int responseCode){
+        RestAssured.basePath = "/api/v1";
+        String endPoint= "/application";
+        Map response = given().log().ifValidationFails()
+                .header("Content-Type", "application/json")
+                .header("Authorization",accessToken)
+                .accept("application/json")
+                .when().get(endPoint)
+                .then()
+                .statusCode(responseCode)
+                .extract()
+                .as(Map.class);
+        return response;
+    }
+
+    public static Map getProfileFields(String profileType,String accessToken,int responseCode){
+        RestAssured.basePath = "/api/v1";
+        String endPoint= "/profileTypes/{profileType}";
+        Map response = given().log().ifValidationFails()
+                .pathParam("profileType", profileType)
+                .header("Content-Type", "application/json")
+                .header("Authorization",accessToken)
+                .accept("application/json")
+                .when().get(endPoint)
+                .then()
+                .statusCode(responseCode)
+                .extract()
+                .as(Map.class);
+        return response;
+    }
+
+
+
 }
