@@ -58,14 +58,21 @@ public class TestSamplePost {
         String propertyFileName = System.getProperty("environment").toLowerCase()+"-testconfig.properties";
         System.out.println("Property file loaded: "+propertyFileName);
 
-        configObject = new ConfigFileObject(propertyFileName);
-        RestAssured.basePath = "/api/v1";
-        RestAssured.baseURI = configObject.strURL;
-        System.out.println("Base Path is "+basePath);
-        System.out.println("Base URI is "+baseURI);
-        basicAuth = configObject.basicAuth;
+//        configObject = new ConfigFileObject(propertyFileName);
+//        RestAssured.basePath = "/api/v1";
+//        RestAssured.baseURI = configObject.strURL;
+//        System.out.println("Base Path is "+basePath);
+//        System.out.println("Base URI is "+baseURI);
+//        basicAuth = configObject.basicAuth;
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.filters(ErrorLoggingFilter.errorLogger());
+    }
+
+    @Test
+    public  void getQTAuthToken() {
+        String strQTAuthToken = EndPointHelper.getQTToken("tester","tester",302);
+        System.out.println("#### QT Auth token : "+ strQTAuthToken+ " ###");
+        System.out.println("End of test : getQTAuthToken");
     }
 
     @Test
